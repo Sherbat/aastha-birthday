@@ -100,28 +100,343 @@ section{max-width:1080px;margin:auto;padding:90px 22px}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}@keyframes heartUp{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}@keyframes spark{to{transform:scale(2) translateY(-40px);opacity:0}}
 .music{position:fixed;right:18px;bottom:18px;z-index:20;border:1px solid #eadfe4;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);padding:11px 15px;border-radius:999px;box-shadow:0 8px 20px rgba(74,55,70,.12);cursor:pointer}
 @media(max-width:760px){section{padding:65px 16px}.message-card{padding:26px}.grid,.reasons{grid-template-columns:1fr}.gifts{grid-template-columns:repeat(2,1fr)}.photos{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:4rem}.timeline:before{left:14px}.memory{padding-left:42px}.dot{left:4px}}
+/* FLOATING PHOTO STICKERS */
+
+.intro-stickers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.sticker {
+    position: absolute;
+    width: 165px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 12px rgba(74,55,70,.18));
+    user-select: none;
+    animation: stickerFloat 4s ease-in-out infinite;
+}
+
+/* STICKER 1 — TOP LEFT */
+.sticker1 {
+    left: 4%;
+    top: 7%;
+    transform: rotate(-5deg);
+    animation-delay: 0s;
+}
+
+/* STICKER 2 — TOP RIGHT */
+.sticker2 {
+    right: 4%;
+    top: 7%;
+    transform: rotate(5deg);
+    animation-delay: -1s;
+}
+
+/* STICKER 3 — MIDDLE LEFT */
+.sticker3 {
+    left: 5%;
+    top: 42%;
+    transform: rotate(4deg);
+    animation-delay: -2s;
+}
+
+/* STICKER 4 — MIDDLE RIGHT */
+.sticker4 {
+    right: 5%;
+    top: 43%;
+    transform: rotate(-4deg);
+    animation-delay: -3s;
+}
+
+/* STICKER 5 — BOTTOM LEFT */
+.sticker5 {
+    left: 20%;
+    bottom: 2%;
+    transform: rotate(-5deg);
+    animation-delay: -1.5s;
+}
+
+/* STICKER 6 — BOTTOM RIGHT */
+.sticker6 {
+    right: 15%;
+    bottom: 2%;
+    width: 400px;
+    transform: rotate(5deg);
+    animation-delay: -2.5s;
+}
+
+/* FLOATING ANIMATION */
+@keyframes stickerFloat {
+    0%, 100% {
+        margin-top: 0;
+    }
+
+    50% {
+        margin-top: -12px;
+    }
+}
+
+/* KEEP MAIN CONTENT ABOVE STICKERS */
+#intro > *:not(.intro-stickers) {
+    position: relative;
+    z-index: 2;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+
+    .sticker {
+        width: 105px;
+    }
+
+    .sticker1 {
+        left: -10px;
+        top: 8%;
+    }
+
+    .sticker2 {
+        right: -10px;
+        top: 8%;
+    }
+
+    .sticker3 {
+        left: -15px;
+        top: 42%;
+    }
+
+    .sticker4 {
+        right: -15px;
+        top: 43%;
+    }
+
+    .sticker5 {
+        left: -10px;
+        bottom: 5%;
+    }
+
+    .sticker6 {
+        right: -10px;
+        bottom: 5%;
+    }
+}/* MOVING PHOTO STRIPS FOR BIRTHDAY MESSAGE */
+
+.birthday-message-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-strip {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 155px;
+    overflow: hidden;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.photo-strip.left {
+    left: 8%;
+}
+
+.photo-strip.right {
+    right: 8%;
+}
+
+.photo-strip-track {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    position: absolute;
+}
+
+.photo-strip img {
+    width: 135px;
+    height: 155px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 6px 8px rgba(74,55,70,.15));
+}
+
+/* LEFT SIDE MOVES UP */
+
+.photo-strip.left .photo-strip-track {
+    animation: photosUp 22s linear infinite;
+}
+
+/* RIGHT SIDE MOVES DOWN */
+
+.photo-strip.right .photo-strip-track {
+    animation: photosDown 22s linear infinite;
+}
+
+@keyframes photosUp {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+}
+
+@keyframes photosDown {
+    from {
+        transform: translateY(-50%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Keep the actual message above the photo strips */
+
+.birthday-message-section .section-head {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    text-align: center;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.birthday-message-section .section-head .eyebrow {
+    text-align: center;
+    width: 100%;
+}
+
+.birthday-message-section .section-head h2 {
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.birthday-message-section .message-card {
+    position: relative;
+    z-index: 2;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+    .photo-strip {
+        width: 90px;
+    }
+
+    .photo-strip.left {
+        left: 2px;
+    }
+
+    .photo-strip.right {
+        right: 2px;
+    }
+
+    .photo-strip img {
+        width: 75px;
+        height: 100px;
+    }
+}
 </style>
 </head>
 <body>
 <div id="intro">
-  <div class="doodle d1">♡</div><div class="doodle d2">✦</div><div class="doodle d3">🎀</div><div class="doodle d4">☁️</div>
+  <div class="intro-stickers">
+
+    <img src="photos/aastha 1.png"
+         class="sticker sticker1"
+         alt="">
+
+    <img src="photos/aastha 2.png"
+         class="sticker sticker2"
+         alt="">
+
+    <img src="photos/aastha 3.png"
+         class="sticker sticker3"
+         alt="">
+
+    <img src="photos/aastha 4.png"
+         class="sticker sticker4"
+         alt="">
+
+    <img src="photos/aastha 5.png"
+         class="sticker sticker5"
+         alt="">
+
+    <img src="photos/aastha 6.png"
+         class="sticker sticker6"
+         alt="">
+
+</div>
   <div class="intro-card">
     <div class="kicker">welcome to your unnecessarily elaborate birthday gift</div>
     <h1 class="hero-title">AASTHA <span>PASTAAAA!</span> 💌</h1>
-    <p class="subtitle">Someone made you a tiny little corner of the internet… because apparently a normal birthday message was not enough.</p>
+    <p class="subtitle">We made you a tiny little corner of the internet… because apparently a normal birthday message was not enough.</p>
     <button class="btn" onclick="openSite()">Open your birthday surprise →</button>
   </div>
 </div>
 
 <main id="site">
-<section>
-  <div class="section-head">
-    <div class="eyebrow">first things first</div><h2>A little birthday message</h2>
-  </div>
-  <div class="message-card">
-    <div id="typed" class="type"></div>
-    <button class="btn soft" onclick="scrollToId('memories')">Okay enough emotions, continue →</button>
-  </div>
+    <div class="photo-strip left">
+    <div class="photo-strip-track">
+
+        <img src="photos/aastha 1.png" alt="">
+        <img src="photos/aastha 2.png" alt="">
+        <img src="photos/aastha 3.png" alt="">
+        <img src="photos/aastha 4.png" alt="">
+        <img src="photos/aastha 5.png" alt="">
+        <img src="photos/aastha 6.png" alt="">
+
+       <img src="photos/aastha 1.png" alt="">
+        <img src="photos/aastha 2.png" alt="">
+        <img src="photos/aastha 3.png" alt="">
+        <img src="photos/aastha 4.png" alt="">
+        <img src="photos/aastha 5.png" alt="">
+        <img src="photos/aastha 6.png" alt="">
+
+    </div>
+</div>
+<div class="photo-strip right">
+    <div class="photo-strip-track">
+
+        <img src="photos/aastha 1.png" alt="">
+        <img src="photos/aastha 2.png" alt="">
+        <img src="photos/aastha 3.png" alt="">
+        <img src="photos/aastha 4.png" alt="">
+        <img src="photos/aastha 5.png" alt="">
+        <img src="photos/aastha 6.png" alt="">
+
+        <img src="photos/aastha 1.png" alt="">
+        <img src="photos/aastha 2.png" alt="">
+        <img src="photos/aastha 3.png" alt="">
+        <img src="photos/aastha 4.png" alt="">
+        <img src="photos/aastha 5.png" alt="">
+        <img src="photos/aastha 6.png" alt="">
+
+    </div>
+</div>
+<section class="birthday-message-section">
+
+    <div class="section-head">
+        <div class="eyebrow">first things first</div>
+        <h2>A little birthday message</h2>
+    </div>
+
+    <div class="message-card">
+        <div id="typed" class="type"></div>
+        <button class="btn soft" onclick="scrollToId('memories')">Okay enough emotions, continue →</button>
+    </div>
+
 </section>
 
 <section id="memories">
@@ -163,7 +478,9 @@ section{max-width:1080px;margin:auto;padding:90px 22px}
 
     </button>
 </div>
-    <div class="memory"><span class="dot"></span><button class="card" onclick="toggle(this)"><div class="memory-top"><span class="memory-title">That one completely chaotic day ft. toota hua chhata at Botanical Garden</span><span class="date">Sept 14th, 2024</span></div><div class="reveal"><div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">
+    <div class="memory"><span class="dot"></span><button class="card" onclick="toggle(this)"><div class="memory-top"><span class="memory-title">That one completely chaotic day ft. toota hua chhata at Botanical Garden</span><span class="date">Sept 14th, 2024</span></div>
+      <div class="reveal" style="padding-top:20px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:15px;">
 
             <img src="photos/memory02.jpeg"
                  style="width:100%; height:320px; object-fit:contain; background:#f7f1f3; border-radius:16px; display:block;">
@@ -272,70 +589,129 @@ section{max-width:1080px;margin:auto;padding:90px 22px}
 <section>
   <div class="section-head"><div class="eyebrow">scientific evidence</div><h2>Things that are VERY Aastha</h2><p>Click a category. The research department has been extremely thorough.</p></div>
   <div class="grid">
-    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">🗣️</span><h3>Her iconic phrases</h3><span class="answer">Add the exact phrase here. Bonus points if reading it instantly makes you hear her voice.</span></button>
-    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">😭</span><h3>Things she always does</h3><span class="answer">Add an oddly specific habit. The more unnecessary the detail, the better.</span></button>
-    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">🎀</span><h3>Things she loves</h3><span class="answer">Her favourite things, comfort shows, food, songs, people, places — fill in the lore.</span></button>
-    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">👀</span><h3>Things that remind me of her</h3><span class="answer">A song. A colour. A random object. A specific word. Something deeply unserious.</span></button>
-    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">🤨</span><h3>Our inside jokes</h3><span class="answer">Put your most incomprehensible inside joke here. Outsiders should be confused.</span></button>
-    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">📋</span><h3>Official Aastha statistics</h3><span class="answer">Overthinking: 98%. Random plans: 87%. Replying on time: statistically questionable.</span></button>
+    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">🗣️</span><h3>Her iconic phrases</h3><span class="answer"> "Abey lodu"; "chal bey chal"; "theeke"</span></button>
+    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">😭</span><h3>Things she always does</h3><span class="answer">Plays games in phones like a 5 year old kid. Makes Anima her social media manager. Advices Naina like her own kid.</span></button>
+    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">🎀</span><h3>Things she loves</h3><span class="answer">Being a woman. Marvel. Spiderman and Wanda (special mentions). Pop Culture. Dancing. Movies. Raju Chinese. Affordable Makeup. Fighting with Anima. Flirting with Anima. Ordering buy two at 79 from BK. Adding-on Mcpuff in EVM. Going to Shani Bajaar. And most importantly... US!</span></button>
+    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">👀</span><h3>Things that remind us of her</h3><span class="answer">Minion; Sunflower - Post Malone; sunflower (the flower); McD; Raju Chinese; lodu; metro; Nishatha Snacks; Sambhar Chawal; the word "bhabhi"</span></button>
+    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">🤨</span><h3>Our inside jokes</h3><span class="answer">ERROR 404 Not Found!</span></button>
+    <button class="trait" onclick="this.classList.toggle('open')"><span class="emoji">📋</span><h3>Official Aastha statistics</h3><span class="answer">Overthinking: 98%. Random plans: 67%. Replying on time: 90%. Mothering us: 100%</span></button>
   </div>
 </section>
 
 <section>
   <div class="section-head"><div class="eyebrow">choose wisely</div><h2>Choose your birthday surprise 🎁</h2></div>
   <div class="gifts">
-    <button class="gift" onclick="openGift(this)"><div><div class="box">🎁</div><div class="box-label">Open this one</div><div class="secret">You have unlocked… a completely unnecessary amount of love. 💗</div></div></button>
-    <button class="gift" onclick="openGift(this)"><div><div class="box">💌</div><div class="box-label">Definitely don't open this</div><div class="secret">You opened it. I knew you would. Anyway: you're stuck with me.</div></div></button>
-    <button class="gift" onclick="openGift(this)"><div><div class="box">👀</div><div class="box-label">You were NOT supposed to click this</div><div class="secret">Too late. Your reward is one embarrassing memory from the archives. (Add yours here.)</div></div></button>
-    <button class="gift" onclick="openGift(this)"><div><div class="box">✨</div><div class="box-label">Okay fine, this one's for you</div><div class="secret">A reminder that you are, in fact, someone's favourite person. 🫶</div></div></button>
-  </div>
+    <button class="gift" onclick="openGift(this)"><div><div class="box">🎁</div><div class="box-label">Open this one</div><div class="secret">You have unlocked… a completely necessary amount of love. 💗</div></div></button>
+    <button class="gift" onclick="openGift(this)">
+    <div>
+        <div class="box">💌</div>
+        <div class="box-label">Gift chaahiye fir?</div>
+
+        <div class="secret">
+            <video controls
+                   onclick="event.stopPropagation()"
+                   style="width:100%; max-width:400px; height:auto; border-radius:16px; margin:15px auto; display:block;">
+                <source src="photos/gift.mp4" type="video/mp4">
+            </video>
+
+            <div>
+                Humaari existence se achha gift kya hi logi! Btw this is us heading to your bday in 2024! ❤️
+            </div>
+        </div>
+    </div>
+</button>
+    <button class="gift" onclick="openGift(this)">
+    <div>
+        <div class="box">👀</div>
+        <div class="box-label">You are NOT supposed to click this</div>
+
+        <div class="secret">
+            <video controls
+                   style="width:100%; max-width:400px; height:auto; border-radius:16px; margin:15px auto; display:block;">
+                <source src="photos/embarrasing video.mp4" type="video/mp4">
+            </video>
+
+            <div>
+                Too late. You were warned. 😭
+            </div>
+        </div>
+    </div>
+</button>
+    <button class="gift" onclick="openGift(this)">
+    <div>
+        <div class="box">✨</div>
+        <div class="box-label">Okay fine, this one's for you</div>
+
+        <div class="secret">
+            <img src="photos/McD.png"
+                 style="width:100%; max-width:400px; height:auto; object-fit:contain; border-radius:16px; margin:15px auto; display:block;">
+
+            <div>
+                Also, a reminder that you are, in fact, someone's favourite person. 🫶
+            </div>
+        </div>
+    </div>
+</button>
 </section>
 
 <section>
   <div class="section-head"><div class="eyebrow">very serious examination</div><h2>Friendship Quiz</h2><p>There will be no consequences for wrong answers. Probably.</p></div>
   <div class="quiz" id="quiz">
     <div class="progress"><span id="bar"></span></div>
-    <div class="q active"><h3>Who is more likely to overthink?</h3><div class="answers"><button onclick="answer(1)">Aastha</button><button onclick="answer(1)">Me</button><button onclick="answer(1)">Both. Catastrophically.</button></div></div>
-    <div class="q"><h3>Who takes longer to reply?</h3><div class="answers"><button onclick="answer(2)">Aastha</button><button onclick="answer(2)">Me</button><button onclick="answer(2)">Depends who needs something.</button></div></div>
-    <div class="q"><h3>Who would survive longer in a zombie apocalypse?</h3><div class="answers"><button onclick="answer(3)">Aastha, somehow</button><button onclick="answer(3)">Me, obviously</button><button onclick="answer(3)">Neither. We're doomed.</button></div></div>
-    <div class="q"><h3>Who is more dramatic?</h3><div class="answers"><button onclick="answer(4)">Aastha</button><button onclick="answer(4)">Me</button><button onclick="answer(4)">This question is dangerous.</button></div></div>
-    <div class="q"><h3>Who knows the other person better?</h3><div class="answers"><button onclick="answer(5)">Aastha</button><button onclick="answer(5)">Me</button><button onclick="answer(5)">We're basically the same person.</button></div></div>
-    <div class="result" id="result"><div class="score">Result: 100% friendship detected.</div><p>Congratulations. You know enough about your best friend to be legally annoying to each other forever. ❤️</p><button class="btn" onclick="confetti();scrollToId('reasons')">Proceed to the emotional damage →</button></div>
+    <div class="q active"><h3>Who is more likely to overthink?</h3><div class="answers"><button onclick="answer(1)">Aastha</button><button onclick="answer(1)">Ms. Oberoi</button><button onclick="answer(1)">Ms. Aastha Oberoi</button></div></div>
+    <div class="q"><h3>Which year did you and Naina meet?</h3><div class="answers"><button onclick="answer(2)">2022</button><button onclick="answer(2)">2023</button><button onclick="answer(2)">2024</button></div></div>
+    <div class="q"><h3>Where did you and Anima go that day back in Sept 2022 which can be said as a strong foundation day for your friendship? </h3><div class="answers"><button onclick="answer(3)">Janpath</button><button onclick="answer(3)">McD, Karol Bagh</button><button onclick="answer(3)">Food Bus, Rajendra Place</button></div></div>
+    <div class="q"><h3>Who is more dramatic?</h3><div class="answers"><button onclick="answer(4)">Aastha</button><button onclick="answer(4)">Naina</button><button onclick="answer(4)">Anima</button></div></div>
+    <div class="q"><h3>Who is the best cook among all?</h3><div class="answers"><button onclick="answer(5)">Aastha alone</button><button onclick="answer(5)">Aastha with Anima</button><button onclick="answer(5)">Aastha with Naina</button></div></div>
+    <div class="result" id="result"><div class="score">Result: 100% friendship detected.</div><p>Congratulations. You know enough about your best friends to be legally annoying and loving to each other forever. ❤️</p><button class="btn" onclick="confetti();scrollToId('reasons')">Proceed to the emotional damage →</button></div>
   </div>
 </section>
 
 <section id="reasons">
-  <div class="section-head"><div class="eyebrow">small things, big deal</div><h2>Reasons why you're my person</h2><p>Open each one. You can replace every message with something personal.</p></div>
+  <div class="section-head"><div class="eyebrow">small things, big deal</div><h2>Reasons why you're our person</h2><p>Open each one.</p></div>
   <div class="reasons">
-    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me ♡</span><span class="opened">Because you make ordinary days fun.</span></button>
-    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me ✦</span><span class="opened">Because I can tell you the dumbest things.</span></button>
-    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me 🎀</span><span class="opened">Because somehow you understand my nonsense.</span></button>
-    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me ☁️</span><span class="opened">Because you make hard days feel a little less hard.</span></button>
-    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me 💌</span><span class="opened">Because there are memories I can't imagine having with anyone else.</span></button>
-    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me ❤️</span><span class="opened">Because life is simply better with you in it.</span></button>
+    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me ♡</span><span class="opened">Because you make ordinary days fun. ~ Anima</span></button>
+    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me ✦</span><span class="opened"> Because I am not afraid to tell something like it is ~ Naina</span></button>
+    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me 🎀</span><span class="opened">Because somehow you understand my nonsense childish behaviour. ~ Anima</span></button>
+    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me ☁️</span><span class="opened">Super confused 90% of the time ~ Naina</span></button>
+    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me 💌</span><span class="opened">Because I can tell you the dumbest things. ~ Anima</span></button>
+    <button class="reason" onclick="this.classList.toggle('open')"><span class="closed">Open me ❤️</span><span class="opened">Just (lost) sunshine in human form ~ Naina</span></button>
   </div>
 </section>
 
 <section>
   <div class="section-head"><div class="eyebrow">the evidence</div><h2>Our photo wall 📸</h2><p>Replace these placeholders with your actual photos. Click one to enlarge it.</p></div>
   <div class="photos">
-    <button class="photo" onclick="lightbox(this.querySelector('img').src)"><img src="https://placehold.co/700x700/f5dbe4/6e5662?text=Photo+01" alt="Photo placeholder"><div class="caption">the lore begins here</div></button>
-    <button class="photo" onclick="lightbox(this.querySelector('img').src)"><img src="https://placehold.co/700x700/e7ddf4/665a76?text=Photo+02" alt="Photo placeholder"><div class="caption">why were we like this</div></button>
-    <button class="photo" onclick="lightbox(this.querySelector('img').src)"><img src="https://placehold.co/700x700/dcecf4/596c78?text=Photo+03" alt="Photo placeholder"><div class="caption">one of the good ones</div></button>
-    <button class="photo" onclick="lightbox(this.querySelector('img').src)"><img src="https://placehold.co/700x700/f7e7aa/6f6544?text=Photo+04" alt="Photo placeholder"><div class="caption">proof we left the house</div></button>
-  </div>
+    <button class="photo" onclick="lightbox(this.querySelector('img').src)"><img src="photos/Screenshot 2026-08-14 221553.png" alt="Aastha memory">><div class="caption">the lore begins here</div></button>
+    <button class="photo">
+    <video controls
+           onclick="event.stopPropagation()"
+           style="width:100%; height:auto; display:block; border-radius:12px;">
+        <source src="photos/AASTHA REACTION.mp4" type="video/mp4">
+    </video>
+    <div class="caption">Aastha's reaction to our collective behavior...</div>
+</button>
+    <button class="photo" onclick="lightbox(this.querySelector('img').src)"><img src="photos/goofy.png" alt="Aastha memory">><div class="caption">one of the good ones</div></button>
+    <button class="photo">
+    <video controls
+           onclick="event.stopPropagation()"
+           style="width:100%; height:auto; display:block; border-radius:12px;">
+        <source src="photos/shadi vlog.mp4" type="video/mp4">
+    </video>
+    <div class="caption">proof we are made for each other...saare ek saath pagal ho jaate hain.</div>
+</button>
 </section>
 
 <section class="final">
   <div class="section-head"><div class="eyebrow">and finally...</div><h2>And that's it…</h2></div>
   <p>Happy Birthday, Aastha ❤️<br><br>Here's to another year of stupid conversations, questionable decisions, inside jokes, random plans, and memories we'll probably never stop talking about.</p>
-  <button class="btn" onclick="finalSurprise()">One last surprise →</button>
+  <button class="btn" onclick="finalSurprise(); playFinalSong()">One last surprise →</button>
   <div class="footer-note">made with questionable amounts of affection &amp; approximately zero common sense</div>
 </section>
 </main>
 
 <button class="music" id="musicBtn" onclick="toggleMusic()">♫ Play birthday music</button>
-<audio id="audio" loop preload="none"></audio>
+<audio id="audio" loop preload="none" src="photos/birthday.mp3"></audio>
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('show')"><span class="close">×</span><img id="lightboxImg" src="" alt="Enlarged memory"></div>
 <div class="confetti" id="fx"></div>
 
@@ -401,6 +777,14 @@ function toggleMusic(){
  else{a.play();document.getElementById('musicBtn').textContent='Ⅱ Pause birthday music'}
  playing=!playing;
 }
+function playFinalSong() {
+    const song = document.getElementById("finalSong");
+    song.volume = 0.4;
+    song.play();
+}
 </script>
+<audio id="finalSong">
+    <source src="photos/happy-birthday-aastha-aasatha-ka-brathada-manao-aastha-birthday-song_QVbPy9bN.mp3" type="audio/mpeg">
+</audio>
 </body>
 </html>
